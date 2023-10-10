@@ -1,5 +1,5 @@
 export interface Preset {
-  modelVersion: string;
+  model: string;
   category: string;
   name: string;
   prompt: string;
@@ -21,138 +21,73 @@ const guidance = 9.5;
 
 export const presets: Preset[] = [
   {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Cyberpunk anime",
-    prompt: "A cyberpunk alleyway, anime, tokyo 2050",
-    negativePrompt,
-    inferenceStep: 55,
-    guidance: 13,
-    seed,
-    exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/293603ea3467f1656330b721d498aacd56d409ee-768x768.png",
-  },
-  {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Andreas Rocha cubism",
+    category: "Toon",
+    model: "toonyou_beta3.safetensors",
+    name: "Cherry blossom anime",
     prompt:
-      "a cubism painting of a town with a lot of houses in the snow with a sky background, Andreas Rocha, matte painting concept art, a detailed matte painting",
-    negativePrompt,
-    inferenceStep: 50,
-    guidance: 7.5,
-    seed,
-    exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/fcac945b61f9b3c5eabc8f22c6919adbb46903a9-768x768.png",
-  },
-  {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Studio Ghibli anime",
-    prompt:
-      "portrait of cute girl, cloudy sky background lush landscape illustration concept art anime key visual trending pixiv fanbox by wlop and greg rutkowski and makoto shinkai and studio ghibli",
+      "masterpiece, best quality, 1girl, solo, cherry blossoms, hanami, pink flower, white flower, spring season, wisteria, petals, flower, plum blossoms, outdoors, falling petals, white hair, black eyes",
     negativePrompt:
-      "(worst quality, poor details:1.4), lowres, (artist name, signature, watermark:1.4), bad-artist-anime, bad_prompt_version2,  bad-hands-5, ng_deepnegative_v1_75t",
-    inferenceStep: 40,
-    guidance: 11.5,
-    seed,
+      "badhandv4, easynegative, ng_deepnegative_v1_75t, verybadimagenegative_v1.3, bad-artist, bad_prompt_version2-neg, teeth",
+    inferenceStep: 25,
+    guidance: 7.5,
+    seed: 255224557,
     exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/f686c0af6278698995fe912fee1ef9279c993ee1-768x768.png",
+      "https://replicate.delivery/pbxt/Z8X0tSefukjHvENMNfszJCtJtM0i4VOvO1QEJB5SSO2sekPFB/out.mp4",
   },
   {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "Subliminal",
-    name: "Medieval",
+    category: "3d",
+    model: "rcnzCartoon3d_v10.safetensors",
+    name: "Jane Eyre realistic",
     prompt:
-      "Medieval village scene with busy streets and castle in the distance",
+      "Jane Eyre with headphones, natural skin texture,4mm,k textures, soft cinematic light, adobe lightroom, photolab, hdr, intricate, elegant, highly detailed, sharp focus, cinematic look, soothing tones, insane details, intricate details, hyperdetailed, low contrast, soft cinematic light, dim colors, exposure blend, hdr, faded",
     negativePrompt:
-      "(worst quality, poor details:1.4), lowres, (artist name, signature, watermark:1.4), bad-artist-anime, bad_prompt_version2,  bad-hands-5, ng_deepnegative_v1_75t",
-    inferenceStep: 20,
+      "deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, mutated hands and fingers, disconnected limbs, mutation, mutated, ugly, disgusting, blurry, amputation",
+    inferenceStep: 25,
     guidance: 7.5,
-    seed: 2145122936,
+    seed: 255224557,
     exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/708531aadd0e4bba0608ae8d74aa3703603c84ea-768x768.png",
+      "https://replicate.delivery/pbxt/TficN2joTY1cSSe6xVDK0ff3EZi8OHPQhXwIZGjikCfWDIPKC/out.mp4",
   },
   {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Abstract art",
+    category: "Realistic",
+    model: "majicmixRealistic_v5Preview.safetensors",
+    name: "Photorealistic girl",
     prompt:
-      "abstract art, non-representative, non-figurative, abstract expressionism, cubist, modern art, geometric, minimalism, surreal, avant-garde ",
-    negativePrompt,
-    inferenceStep: 40,
-    seed,
-    guidance: 12,
-  },
-  {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Neo Aztec",
-    prompt: "a townhouse inspired by aztec architecture on a sunny day",
-    negativePrompt,
-    guidance,
-    inferenceStep: 30,
-    seed,
-  },
-  {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Forestpunk",
-    prompt:
-      "forestpunk, green pastures, lush environment, vivid colors, animation by studio ghibli",
-    negativePrompt,
-    guidance,
-    inferenceStep: 30,
-    seed,
-    exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/7ebc0df749174ad5d877b17b4be974e96230606c-768x768.webp",
-  },
-  {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Futuristic",
-    prompt:
-      "aerial view, a futuristic research complex in a bright foggy jungle, hard lighting",
-    negativePrompt,
-    inferenceStep: 80,
-    guidance: 12,
-    strength: 0.85,
-    seed,
-    exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/d7316dd8f258780e011b5ccc292d78f2cbaa44cb-1024x1024.png",
-  },
-  {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Darthouven Fish Men",
-    prompt: "Darthouven Fish Men",
-    negativePrompt,
-    inferenceStep: 40,
+      "best quality, masterpiece, photorealistic, 1girl, light smile, shirt with collars, waist up, dramatic lighting, from below",
+    negativePrompt:
+      "nsfw, ng_deepnegative_v1_75t, badhandv4, worst quality, low quality, normal quality, lowres, watermark, monochrome",
+    inferenceStep: 25,
     guidance: 7.5,
-    seed,
+    seed: 255224557,
     exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/4197c26893fb2d7f99fe77931d4275809336a4f3-768x768.png",
+      "https://replicate.delivery/pbxt/Zh775Sq5nM5sOhfhiDGHvyql1gPaX9SuyPN9X6TZo1ivg8oIA/out.mp4",
   },
   {
-    modelVersion:
-      "75d51a73fce3c00de31ed9ab4358c73e8fc0f627dc8ce975818e653317cb919b",
-    category: "QR",
-    name: "Japanese fusion",
-    prompt: "Japanese painting, mountains",
-    negativePrompt,
-    guidance,
-    inferenceStep: 30,
-    seed,
+    category: "Realistic",
+    model: "realisticVisionV40_v20Novae.safetensors",
+    name: "Coastline realistic",
+    prompt:
+      "photo of coastline, rocks, storm weather, wind, waves, lightning, 8k uhd, dslr, soft lighting, high quality, film grain, Fujifilm XT3",
+    negativePrompt:
+      "blur, haze, deformed iris, deformed pupils, semi-realistic, cgi, 3d, render, sketch, cartoon, drawing, anime, mutated hands and fingers, deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, disconnected limbs, mutation, mutated, ugly, disgusting, amputation",
+    inferenceStep: 25,
+    guidance: 7.5,
+    seed: 255224556,
     exampleOutput:
-      "https://cdn.sanity.io/images/s3mrlbj8/production/5be6c4ddbebdc7dfa14b2d0ecc1e61b0f8ea7452-768x768.png",
+      "https://replicate.delivery/pbxt/vAIp7yPnV4KnEVwqEWbxiBWHqUYxIEy6PmkSLUUwUBu1WrVE/out.mp4",
+  },
+  {
+    category: "Lyriel",
+    model: "lyriel_v16.safetensors",
+    name: "Forbidden castle, game art",
+    prompt:
+      "A forbidden castle high up in the mountains, pixel art, intricate details2, hdr, intricate details, hyperdetailed5, natural skin texture, hyperrealism, soft light, sharp, game art, key visual, surreal",
+    negativePrompt:
+      "3d, cartoon, anime, sketches, worst quality, low quality, normal quality, lowres, normal quality, monochrome, grayscale, watermark",
+    inferenceStep: 25,
+    seed: 255224557,
+    guidance: 7.5,
+    exampleOutput:
+      "https://replicate.delivery/pbxt/gBBUT3rKDC7LB9VLc5eVWXv2yXbhm6w4bX5e9WNghqoQH5RRA/out.mp4",
   },
 ];

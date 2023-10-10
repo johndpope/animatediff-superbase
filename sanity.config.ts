@@ -3,9 +3,9 @@ import { deskTool } from "sanity/desk";
 import schemas from "./sanity/schemas";
 
 const config = defineConfig({
-  projectId: "s3mrlbj8",
+  projectId: "mipq5dml",
   dataset: "production",
-  title: "Glyph",
+  title: "Entropy",
   apiVersion: "2023-03-09",
   basePath: "/admin",
   plugins: [deskTool()],

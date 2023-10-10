@@ -46,7 +46,6 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Create a new ratelimiter, that allows 30 requests per 10 minutes
 // Create a new ratelimiters for each subscription tier
 const ratelimits = {
   free: new Ratelimit({
@@ -77,9 +76,9 @@ const ratelimits = {
 
 // Mapping of subscription tier ids to ratelimit keys
 const subscriptionTierToRateLimitKey = {
-  price_1NuJ60Lr4ehzJMlIGSSNFUHY: "psycho",
-  price_1NuJ5xLr4ehzJMlIZ0p87pNK: "pro",
-  price_1NuJ5qLr4ehzJMlI27gBJqye: "starter",
+  price_1NzcnDAyWZBYqGbTbjH4oZFO: "psycho",
+  price_1NzciKAyWZBYqGbTSSI17QNp: "pro",
+  price_1NzcLoAyWZBYqGbTGxOB1Jr8: "starter",
 };
 
 const makeRequest = async (input) => {

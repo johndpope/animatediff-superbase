@@ -5,8 +5,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const categories = [
-  { _id: 1, category: "qr" },
-  { _id: 2, category: "subliminal" },
+  { _id: 1, category: "toon" },
+  { _id: 2, category: "realistic" },
+  { _id: 3, category: "3d" },
 ];
 
 export default function CategoryLinks() {

@@ -21,7 +21,7 @@ export default async function GalleryLayout({
       <Navbar user={user} />
       <div
         className={clsx(
-          "bg-neutral-one text-neutral-ten dark:bg-neutral-ten dark:text-neutral-one"
+          "bg-neutral-one text-neutral-ten dark:bg-neutral-ten dark:text-neutral-one flex flex-col min-h-screen"
         )}
       >
         <section

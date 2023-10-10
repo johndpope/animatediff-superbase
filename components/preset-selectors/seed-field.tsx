@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { FormControl, FormItem, FormMessage } from "@/components/ui/form";
 
-import { playgroundFormSchema } from "@/schemas/formSchemas";
+import { playgroundFormSchema } from "@/lib/hooks/schemas/formSchemas";
 
 interface SeedFieldProps {
   form: UseFormReturn<z.infer<typeof playgroundFormSchema>>;
@@ -24,12 +24,6 @@ export function SeedField({ form }: SeedFieldProps) {
     control,
     formState: { errors },
   } = form;
-
-  React.useEffect(() => {
-    if (errors.seed) {
-      console.log(errors.seed.message);
-    }
-  }, [errors.seed]);
 
   return (
     <div className="grid gap-2 pt-2">

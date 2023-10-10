@@ -1,6 +1,7 @@
 const CATEGORY = [
-  { title: "QR Code", value: "qr" },
-  { title: "Subliminal", value: "subliminal" },
+  { title: "Toon", value: "toon" },
+  { title: "Realistic", value: "realistic" },
+  { title: "3D", value: "3d" },
 ];
 
 const RATIOS = [
@@ -48,13 +49,13 @@ export default {
         Rule.required().error("Image Category is required"),
     },
     {
-      title: "Image",
-      name: "image",
-      type: "image",
-      option: {
-        hotspot: true,
+      title: "Video",
+      name: "video",
+      type: "file",
+      validation: (Rule: any) => Rule.required().error("Video is required"),
+      options: {
+        accept: ".mp4",
       },
-      validation: (Rule: any) => Rule.required().error("Image is required"),
       fields: [
         {
           title: "Alt Text",

@@ -77,10 +77,11 @@ export default function FAQ() {
         </div>
       </div>
       <div>
-        <Image
-          src="https://cdn.sanity.io/images/s3mrlbj8/production/18784cb9061c7739a5387f73b4c20e87ff23e183-1024x1024.png"
+        <video
+          autoPlay
+          loop
+          src="https://cdn.sanity.io/files/mipq5dml/production/765c0f066bee1a3ed7e5ee8d0e1c40bed7128d57.mp4"
           className="rounded-lg shadow-lg dark:shadow-black/20"
-          alt=""
           width={768}
           height={768}
         />

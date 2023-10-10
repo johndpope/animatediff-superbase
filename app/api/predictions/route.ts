@@ -86,13 +86,11 @@ export async function POST(request: Request) {
         "9cdabf8f8a991351960c7ce2105de2909514b40bd27ac202dba57935b07d29d4",
       input: {
         prompt,
-        qr_code_content: url,
         negative_prompt: negativePrompt,
         num_inference_steps: inferenceStep,
         guidance_scale: guidance,
         seed,
         strength,
-        controlnet_conditioning_scale: controlnetConditioning,
         batch_size: 1,
       },
     }),

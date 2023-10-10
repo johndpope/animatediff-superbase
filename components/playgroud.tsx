@@ -38,9 +38,8 @@ import { SeedField } from "@/components/preset-selectors/seed-field";
 import { GuidanceSelector } from "@/components/preset-selectors/guidance-selector";
 import { NegativePromptField } from "@/components/preset-selectors/negative-prompt-field";
 
-import { playgroundFormSchema } from "@/schemas/formSchemas";
+import { playgroundFormSchema } from "@/lib/hooks/schemas/formSchemas";
 import { Model, models, types } from "@/lib/data/models";
-import { Preset } from "@/lib/data/presets";
 import { extractProgress } from "@/utils/helpers";
 import { usePlaygroundForm } from "@/lib/hooks/use-playground-form";
 import { Row } from "./ui/row";
@@ -66,27 +65,23 @@ export default function Playground({ user, userDetails, subscription }) {
   const [isSubmitting, setSubmitting] = useState(false);
 
   async function onSubmit(values: z.infer<typeof playgroundFormSchema>) {
-    console.log("values", values);
     setStatus("Starting...");
     setProgress(0);
     setPrediction(null);
     setSubmitting(true);
 
     // Make initial request to Lambda function to create a prediction
-    const res = await fetch(
-      "https://xzaox3q69a.execute-api.us-east-1.amazonaws.com/prod/predictions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...values,
-          userId: user.id,
-          subscription_tier: subscription?.price_id,
-        }),
-      }
-    );
+    const res = await fetch(process.env.NEXT_PUBLIC_API_GATEWAY_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...values,
+        userId: user.id,
+        subscription_tier: subscription?.price_id,
+      }),
+    });
 
     const response = await res.json();
     console.log("response", response);
@@ -127,7 +122,7 @@ export default function Playground({ user, userDetails, subscription }) {
     let predictions = null;
     while (!predictions && predictionId) {
       let pollRes = await fetch(
-        `https://xzaox3q69a.execute-api.us-east-1.amazonaws.com/prod/predictions/${predictionId}`,
+        `${process.env.NEXT_PUBLIC_API_GATEWAY_URL}/${predictionId}`,
         {
           method: "GET",
           headers: {
@@ -201,12 +196,50 @@ export default function Playground({ user, userDetails, subscription }) {
                               {...field}
                             />
                             <div className="flex justify-end items-center">
-                              <Button
-                                variant="ghost"
-                                className="opacity-50 hover:opacity-100 transition duration-200"
-                              >
-                                <PaperPlaneIcon className="h-4 w-4" />
-                              </Button>
+                              {isSuccess ? (
+                                <Button className="w-full duration-150 bg-green-500 hover:bg-green-600 hover:text-slate-100 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 active:scale-100 active:bg-green-800 active:text-green-100">
+                                  <SuccessIcon />
+                                </Button>
+                              ) : (
+                                <Button
+                                  disabled={isSubmitting}
+                                  variant="ghost"
+                                  onClick={async (event) => {
+                                    event.preventDefault();
+                                    if (!user) {
+                                      toast({
+                                        description:
+                                          "Please log in to generate images.",
+                                        action: (
+                                          <ToastAction
+                                            altText="Log In"
+                                            onClick={() => {
+                                              router.push("/signin");
+                                            }}
+                                          >
+                                            <LockOpen1Icon className="mr-2" />{" "}
+                                            Log In
+                                          </ToastAction>
+                                        ),
+                                      });
+                                    } else {
+                                      const isValid = await form.trigger();
+                                      if (isValid) {
+                                        onSubmit(form.getValues());
+                                      }
+                                    }
+                                  }}
+                                  className="w-full lg:w-auto active:scale-95 scale-100 duration-75 disabled:cursor-not-allowed hover:opacity-100 transition duration-200 opacity-70"
+                                >
+                                  {isSubmitting ? (
+                                    <ReloadIcon className="h-4 w-4 animate-spin" />
+                                  ) : user ? (
+                                    <PaperPlaneIcon className="h-4 w-4" />
+                                  ) : (
+                                    <LockClosedIcon className="h-4 w-4" />
+                                  )}
+                                </Button>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -214,7 +247,7 @@ export default function Playground({ user, userDetails, subscription }) {
                           <PopoverTrigger asChild>
                             <Button
                               variant="ghost"
-                              className="p-0 hover:bg-transparent hover:opacity-100 transition duration-200 opacity-50"
+                              className="p-0 hover:bg-transparent hover:opacity-100 transition duration-200 opacity-70"
                             >
                               <GearIcon className="h-4 w-4" />
                             </Button>
@@ -242,28 +275,18 @@ export default function Playground({ user, userDetails, subscription }) {
             {prediction && prediction.output ? (
               <Dialog>
                 <DialogTrigger>
-                  <div className="bg-muted rounded-md hover:opacity-90 duration-500 ease-in-out mx-auto">
-                    <Image
-                      alt="Entropy image output"
-                      src={prediction.output[prediction.output.length - 1]}
-                      width={768}
-                      height={768}
-                      quality={100}
-                    />
-                  </div>
+                  <video
+                    controls
+                    loop
+                    autoPlay
+                    src={prediction.output}
+                    className="bg-muted rounded-md hover:opacity-90 duration-500 ease-in-out mx-auto"
+                  />
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <figure className={"aspect-square"}>
-                    <Image
-                      fill={true}
-                      loading={"eager"}
-                      alt="Glyph image output"
-                      src={prediction.output[prediction.output.length - 1]}
-                      quality={100}
-                    />
-                  </figure>
+                <DialogContent>
+                  <video controls loop autoPlay src={prediction.output} />
                   <Link
-                    href={prediction.output[prediction.output.length - 1]}
+                    href={prediction.output}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="absolute right-12 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
@@ -282,18 +305,9 @@ export default function Playground({ user, userDetails, subscription }) {
                     </Label>
                     <Progress className="w-1/2" value={progress} />
                     <div className="absolute bottom-4 w-full text-center text-slate-500 text-xs">
-                      Takes 8-20 seconds to generate.
+                      Takes ~30 seconds to generate.
                     </div>
                   </div>
-                )}
-                {!isSubmitting && selectedImage && (
-                  <Image
-                    alt="Selected image"
-                    src={selectedImage.url}
-                    width={768}
-                    height={768}
-                    quality={100}
-                  />
                 )}
               </div>
             )}
@@ -309,10 +323,7 @@ export default function Playground({ user, userDetails, subscription }) {
             Try out one of the prompts below.
           </p>
         </Column>
-        <ExampleTemplatesSection
-          form={form}
-          setSelectedImage={setSelectedImage}
-        />
+        <ExampleTemplatesSection form={form} />
       </Column>
     </>
   );

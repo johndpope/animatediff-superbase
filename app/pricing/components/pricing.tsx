@@ -20,7 +20,6 @@ import { Database } from "@/types_db";
 import { toast } from "@/components/ui/use-toast";
 import { Icons } from "@/components/ui/icons";
 import { ResizablePanel } from "@/components/ui/resizable-panel";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Balancer } from "react-wrap-balancer";
 
 type Subscription = Database["public"]["Tables"]["subscriptions"]["Row"];
@@ -144,7 +143,8 @@ export default function Pricing({
               You have{" "}
               <span className="font-semibold">
                 {session ? userDetails?.credits : 0} credits.
-              </span>{" "}
+              </span>
+              <br />
               Choose to upgrade to a plan or pay as you go.
             </Balancer>
           </p>

@@ -73,7 +73,6 @@ export function ProfileForm({ session, userDetails }: Props) {
       .eq("id", user?.id);
     if (error) {
       setIsLoading(false);
-      console.log("updateName error: ", error);
       toast({
         variant: "destructive",
         title: "Uh oh! Your display name couldn't be changed.",
@@ -94,7 +93,6 @@ export function ProfileForm({ session, userDetails }: Props) {
     const { error } = await supabase.auth.updateUser({ email });
     if (error) {
       setIsLoading(false);
-      console.log("updateEmail: ", error);
       toast({
         variant: "destructive",
         title: "Uh oh! Your email couldn't be changed.",

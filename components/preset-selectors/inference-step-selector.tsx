@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
-import { playgroundFormSchema } from "@/schemas/formSchemas";
+import { playgroundFormSchema } from "@/lib/hooks/schemas/formSchemas";
 import { useSliderChange } from "@/lib/hooks/use-slider-change";
 
 interface InferenceStepSelectorProps {
@@ -40,7 +40,7 @@ export function InferenceStepSelector({ form }: InferenceStepSelectorProps) {
               max={100}
               min={20}
               value={[value]}
-              step={2}
+              step={1}
               onValueChange={handleSliderChange}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               aria-label="Inference Step"

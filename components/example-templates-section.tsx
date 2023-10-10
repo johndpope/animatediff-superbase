@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import React, { useState } from "react";
 import { CheckIcon } from "@radix-ui/react-icons";
 
@@ -17,7 +16,6 @@ import { usePlaygroundForm } from "@/lib/hooks/use-playground-form";
 type SeeExampleOutputDialogProps = {
   form: ReturnType<typeof usePlaygroundForm>;
   item: any;
-  setSelectedImage: (image: any) => void;
   setOpen: (state: boolean) => void;
 };
 
@@ -44,19 +42,17 @@ function Item({ item, onSelectExample }: ItemProps) {
 const SeeExampleOutputDialog = ({
   form,
   item,
-  setSelectedImage,
   setOpen,
 }: SeeExampleOutputDialogProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const onSubmit = () => {
-    setSelectedImage(item.image);
     form.setValue("prompt", item.prompt);
     form.setValue("negativePrompt", item.negativePrompt);
     form.setValue("inferenceStep", item.inferenceStep);
     form.setValue("guidance", item.guidance);
     form.setValue("seed", item.seed);
-    console.log("after", form.getValues()); // Log the form values after setting
+    form.setValue("path", item.model);
 
     setOpen(false);
   };
@@ -71,8 +67,6 @@ const SeeExampleOutputDialog = ({
                 {item &&
                   Object.keys(item).map((key) => {
                     if (
-                      key !== "id" &&
-                      key !== "modelVersion" &&
                       key !== "name" &&
                       key !== "exampleOutput" &&
                       key !== "category"
@@ -98,21 +92,20 @@ const SeeExampleOutputDialog = ({
             </ScrollArea>
           </div>
           <div className="w-full md:w-1/2">
-            <div className="relative scrollbar-hide overflow-auto shadow-sm border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 w-full rounded-lg p-1">
+            <div className="relative scrollbar-hide overflow-auto shadow-sm border border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900 w-full rounded-lg">
               <figure className={"aspect-square"}>
-                <Image
-                  loading="lazy"
-                  priority={false}
+                <video
+                  autoPlay
+                  loop
+                  controls
                   className={clsx(
                     "object-cover duration-700 ease-in-out",
                     isLoading
                       ? "scale-120 blur-3xl grayscale"
                       : "scale-100 blur-0 grayscale-0"
                   )}
+                  onLoadedData={() => setIsLoading(false)}
                   src={item?.exampleOutput}
-                  fill={true}
-                  alt="Example Image"
-                  onLoadingComplete={() => setIsLoading(false)}
                 />
               </figure>
             </div>
@@ -129,7 +122,7 @@ const SeeExampleOutputDialog = ({
   );
 };
 
-export default function ExampleTemplatesSection({ form, setSelectedImage }) {
+export default function ExampleTemplatesSection({ form }) {
   const [selectedExample, setSelectedExample] = React.useState<Preset | null>(
     null
   );
@@ -139,7 +132,6 @@ export default function ExampleTemplatesSection({ form, setSelectedImage }) {
       <SeeExampleOutputDialog
         form={form}
         item={selectedExample}
-        setSelectedImage={setSelectedImage}
         setOpen={() => setSelectedExample(null)}
       />
       <Column className="gap-2 w-full max-w-[90vw]">

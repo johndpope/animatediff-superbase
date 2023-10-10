@@ -9,8 +9,8 @@ export async function getAll(): Promise<ImageDataType[]> {
       title,
       ratio,
       category,
-      "imageUrl": image.asset->url,
-      "alt": image.alt
+      "imageUrl": video.asset->url,
+      "alt": video.alt
     }`
   );
 }
@@ -24,8 +24,8 @@ export async function getByCategory(
       title,
       ratio,
       category,
-      "imageUrl": image.asset->url,
-      "alt": image.alt
+      "imageUrl": video.asset->url,
+      "alt": video.alt
     }`
   );
 }

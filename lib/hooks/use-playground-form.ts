@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { playgroundFormSchema } from "@/schemas/formSchemas";
+import { playgroundFormSchema } from "@/lib/hooks/schemas/formSchemas";
 
 export function usePlaygroundForm() {
   const form = useForm<z.infer<typeof playgroundFormSchema>>({
@@ -11,9 +11,9 @@ export function usePlaygroundForm() {
       prompt: "",
       path: "toonyou_beta3.safetensors",
       negativePrompt: "ugly, disfigured, low quality, blurry, nsfw",
-      inferenceStep: 20,
-      guidance: 9.5,
-      seed: -1,
+      inferenceStep: 25,
+      guidance: 7.5,
+      seed: 255224557,
     },
   });
 
