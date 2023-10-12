@@ -229,7 +229,7 @@ export default function Playground({ user, userDetails, subscription }) {
                                       }
                                     }
                                   }}
-                                  className="w-full lg:w-auto active:scale-95 scale-100 duration-75 disabled:cursor-not-allowed hover:opacity-100 transition duration-200 opacity-70"
+                                  className="w-full lg:w-auto active:scale-95 scale-100 disabled:cursor-not-allowed hover:opacity-100 transition duration-200 opacity-70"
                                 >
                                   {isSubmitting ? (
                                     <ReloadIcon className="h-4 w-4 animate-spin" />

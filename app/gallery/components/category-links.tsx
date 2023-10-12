@@ -18,7 +18,7 @@ export default function CategoryLinks() {
       <ul className="flex gap-5">
         <li
           className={clsx(
-            "hover:text-rose-seven dark:hover:text-rose-five",
+            "hover:underline",
             pathname === "/gallery" && "text-rose-seven dark:text-rose-five"
           )}
         >
@@ -28,7 +28,7 @@ export default function CategoryLinks() {
           <li
             key={_id}
             className={clsx(
-              "hover:text-rose-seven dark:hover:text-rose-five",
+              "hover:underline",
               pathname === `/gallery/${category}` &&
                 "text-rose-seven dark:text-rose-five"
             )}
